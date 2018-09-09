@@ -1,0 +1,10 @@
+ecrire ceci dans /chemin/vers/script.sh
+```
+#!/bin/sh
+apt-get update && apt-get upgrade >> /var/log/update_script.log
+```
+ajouter les droits d'execution : "sudo chmod +x /chemin/vers/script.sh"
+et les droits d'ecriture : "sudo chmod +w /var/log/update_script.log"
+
+puis executer "sudo crontab -e"
+et ecrire dedans la ligne : "00 04 * * 1 /chemin/vers/script.sh"

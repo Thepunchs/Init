@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ ! -f /tmp/md5_cron ]; then
+	md5sum /etc/crontab > /tmp/md5_cron
+else
+	old_sum=`cat /tmp/md5_cron | cut -d ' ' -f 1`
+	new_sum=`md5sum /etc/crontab | cut -d ' ' -f 1`
+	if [ $new_sum != $old_sum ]; then
+		mail -s "crontab modified !" "root@localhost" <<-EOF
+		Crontab has been modified!
+		EOF
+	fi
+fi
+
+#Ajouter la ligne suivante dans "sudo crontab -e" :
+# 0 0 * * * /chemin/vers/04.sh
